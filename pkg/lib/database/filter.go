@@ -479,6 +479,7 @@ func (e FilterEq) filterObject(v domain.Value) bool {
 	comp := e.Value.Compare(v)
 	switch e.Cond {
 	case model.BlockContentDataviewFilter_Equal:
+		// Note: float64 comparisons are strict; callers should normalize inputs accordingly.
 		return comp == 0
 	case model.BlockContentDataviewFilter_Greater:
 		return comp == -1
