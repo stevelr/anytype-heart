@@ -425,7 +425,7 @@ func TestMakeAndFilter(t *testing.T) {
 		}, store)
 		assert.Error(t, err)
 	})
-	t.Run("replace 'value == false' to 'value != true'", func(t *testing.T) {
+	t.Run("value == false does not match missing", func(t *testing.T) {
 		f, err := MakeFilters([]FilterRequest{
 			{
 				RelationKey: "b",
@@ -439,7 +439,7 @@ func TestMakeAndFilter(t *testing.T) {
 		assertFilter(t, f, g, true)
 
 		g = domain.NewDetailsFromMap(map[domain.RelationKey]domain.Value{"not_exists": domain.Bool(false)})
-		assertFilter(t, f, g, true)
+		assertFilter(t, f, g, false)
 
 		g = domain.NewDetailsFromMap(map[domain.RelationKey]domain.Value{"b": domain.Bool(true)})
 		assertFilter(t, f, g, false)
